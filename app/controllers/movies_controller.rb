@@ -1,4 +1,5 @@
 class MoviesController < ApplicationController
+  helper_method :hilite
 
   def show
     id = params[:id] # retrieve movie ID from URI route
@@ -8,12 +9,23 @@ class MoviesController < ApplicationController
 
   def index
     
-    @movies = Movie.all
+#    @movies = Movie.all
     @all_ratings = Movie.all_ratings
     @ratings_to_show = []
-    ratings = params[:ratings]
-    @movies = Movie.with_ratings(ratings)
+    @ratings = params[:ratings]
+    @movies = Movie.with_ratings(params[:ratings])
+    
+    @sort_by = params[:sort_by]
+    @movies = @movies.order(params[:sort_by])
 
+  end
+
+
+  def hilite(type)
+    if(@sort_by == type)
+      return "p-3 bg-warning"
+    end
+    return nil
   end
 
   def new
