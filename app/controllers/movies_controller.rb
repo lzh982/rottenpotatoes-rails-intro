@@ -12,20 +12,31 @@ class MoviesController < ApplicationController
 #    @movies = Movie.all
     @all_ratings = Movie.all_ratings
     @ratings_to_show = []
+    if(params.has_key?(:ratings))
+      @ratings_to_show = params[:ratings].keys
+    end
     @ratings = params[:ratings]
     @movies = Movie.with_ratings(params[:ratings])
     
     @sort_by = params[:sort_by]
     @movies = @movies.order(params[:sort_by])
+    @hilite_release_date = ''
+    @hilite_movie_title = ''
+    hilite(@sort_by)
+    
+
 
   end
 
 
   def hilite(type)
-    if(@sort_by == type)
-      return "p-3 bg-warning"
+
+    if(@sort_by == 'release_date')
+      @hilite_release_date =  "bg-warning"
+    elsif @sort_by == "title"
+      @hilite_movie_title = "bg-warning"
     end
-    return nil
+  
   end
 
   def new
