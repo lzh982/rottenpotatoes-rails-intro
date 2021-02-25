@@ -1,3 +1,4 @@
+  
 class Movie < ActiveRecord::Base
   def self.with_ratings(ratings_list)
   # if ratings_list is an array such as ['G', 'PG', 'R'], retrieve all
@@ -6,7 +7,6 @@ class Movie < ActiveRecord::Base
     if ratings_list==nil
       return Movie.all
     else 
-        puts rating: ratings_list.keys
       return Movie.where(rating: ratings_list.keys)
     end
   end

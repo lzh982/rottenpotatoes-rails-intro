@@ -11,6 +11,10 @@ class MoviesController < ApplicationController
     
 #    @movies = Movie.all
     @all_ratings = Movie.all_ratings
+    
+    if (params[:sort_by]==nil && params[:ratings]==nil && (session[:sort_by]!=nil || !session[:ratings]!=nil))
+        redirect_to movies_path(:sort_by => session[:sort_by], :ratings => session[:ratings])
+    end
     @ratings_to_show = []
     if(params.has_key?(:ratings))
       @ratings_to_show = params[:ratings].keys
@@ -24,6 +28,8 @@ class MoviesController < ApplicationController
     @hilite_movie_title = ''
     hilite(@sort_by)
     
+    session[:sort_by] = @sort_by
+    session[:ratings] = @ratings
 
 
   end

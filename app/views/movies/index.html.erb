@@ -12,14 +12,13 @@
   <% end %>
   <%= submit_tag 'Refresh', id: 'ratings_submit', class: 'btn btn-primary' %>
 <% end %>
-
 <table class="table table-striped col-md-12" id="movies">
+
   <thead>
     <tr>
       <%#.bg-warning title_header release_date_header movies%>
       <th class = <%= @hilite_movie_title%>>
         <%=link_to "Movie Title", movies_path(:sort_by =>"title",:ratings => @ratings),:id => 'title_header' %>
-
       </th>
       <th>Rating</th>
       <th class = <%= @hilite_release_date%>>
